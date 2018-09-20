@@ -2,12 +2,20 @@
 
 #include "palindrome.h"
 
+// Nic wanted us to make a function for the reused logic - Nic said he probably wouldn't give us extra credit for doing so, BUT, probably means there's a non-zero chance. Just thought I'd mention it :)
+
+void palindrome_test(char const *str, char const *yesno) {
+  char *answer = palindrome(str);
+  ASSERT_STREQ(answer, yesno);
+  free(answer);
+}
+
 void is_palindrome(char const *str) {
-  ASSERT_STREQ(palindrome(str), "Yes");
+  palindrome_test(str, "Yes");
 }
 
 void not_palindrome(char const *str) {
-  ASSERT_STREQ(palindrome(str), "No");
+  palindrome_test(str, "No");
 }
 
 TEST(Palindrome, HandlesEmptyString) {
