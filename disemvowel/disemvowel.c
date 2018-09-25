@@ -1,12 +1,12 @@
 #include <stdlib.h>
-
+#include <string.h>
 #include "disemvowel.h"
 
 char *disemvowel(char *str) {
-  char *consonants = "BbCcDdFfGgHhJjKkLlMmNnPpQqRrSsTtVvWwXxYyZz";
-  int conLen = 42;
+  char *consonants = "BbCcDdFfGgHhJjKkLlMmNnPpQqRrSsTtVvWwXxYyZz,.!?\'\"\(\)";
+  int conLen = 50;
   int resultLen = 0;
-  strLen = strlen(str);
+  int strLen = strlen(str);
   // Create a temporary string for the result that is bigger than we need
   char *tempResult = (char*) calloc(strLen + 1, sizeof(char));
   
@@ -18,14 +18,19 @@ char *disemvowel(char *str) {
 	resultLen++;
 	break;
       }
+      // Keep spaces in the result
+      if(str[i] == ' ') {
+	tempResult[resultLen] = str[i];
+	resultLen++;
+	break;
+      }
     }
   }
 
   // If str was all consonants, just return it
   if( strLen == resultLen ) {
-    //free(consonants);
-    free(tempResult);
-    return str;
+    tempResult[resultLen] = '\0';
+    return tempResult;
   }
   
   // Create the empty result
@@ -35,9 +40,8 @@ char *disemvowel(char *str) {
   memcpy(result, tempResult, resultLen);
 
   // add the null terminator to the end of result
-  result[resultLen] = '/0';
+  result[resultLen] = '\0';
 
-  //free(consonants);
   free(tempResult);
     
   return result;
